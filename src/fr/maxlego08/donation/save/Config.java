@@ -18,6 +18,8 @@ public class Config implements Saveable {
 
 	public static String inventoryDonations = "§8Donations";
 	public static String inventoryDonation = "§8Donation §o%sender%";
+	public static String inventoryDonationSend = "§8Donation §o%target%";
+
 
 
 	static {
