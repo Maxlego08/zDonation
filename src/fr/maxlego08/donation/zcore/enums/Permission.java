@@ -1,6 +1,11 @@
 package fr.maxlego08.donation.zcore.enums;
 
 public enum Permission {
+	
+	ZDONATION_USE,
+	ZDONATION_OPEN,
+	ZDONATION_SEND,
+	ZDONATION_RELOAD,
 
 	;
 

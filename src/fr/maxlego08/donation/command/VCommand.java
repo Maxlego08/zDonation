@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.maxlego08.donation.ZDonationPlugin;
+import fr.maxlego08.donation.api.DonationManager;
 import fr.maxlego08.donation.zcore.enums.Message;
 import fr.maxlego08.donation.zcore.enums.Permission;
 import fr.maxlego08.donation.zcore.utils.commands.Arguments;
@@ -35,6 +36,7 @@ public abstract class VCommand extends Arguments {
 
 	private List<String> requireArgs = new ArrayList<String>();
 	private List<String> optionalArgs = new ArrayList<String>();
+	protected DonationManager donationManager;
 
 	/**
 	 * If this variable is false the command will not be able to use this
@@ -348,6 +350,7 @@ public abstract class VCommand extends Arguments {
 
 		// On met à jour le nombre d'argument en fonction du nombre de parent
 
+		this.donationManager = main.getDonationManager();
 		parentCount = parentCount(0);
 		argsMaxLength = requireArgs.size() + optionalArgs.size() + parentCount;
 		argsMinLength = requireArgs.size() + parentCount;

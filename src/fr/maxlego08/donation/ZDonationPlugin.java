@@ -4,6 +4,7 @@ import org.bukkit.plugin.ServicePriority;
 
 import fr.maxlego08.donation.api.DonationManager;
 import fr.maxlego08.donation.command.CommandManager;
+import fr.maxlego08.donation.command.commands.CommandDonation;
 import fr.maxlego08.donation.inventory.InventoryManager;
 import fr.maxlego08.donation.listener.AdapterListener;
 import fr.maxlego08.donation.save.Config;
@@ -32,6 +33,8 @@ public class ZDonationPlugin extends ZPlugin {
 		this.getServer().getServicesManager().register(DonationManager.class, donationManager, this,
 				ServicePriority.High);
 
+		this.registerCommand("zdonation", new CommandDonation(), "don", "donation");
+		
 		/* Add Listener */
 
 		addListener(new AdapterListener(this));
@@ -57,4 +60,8 @@ public class ZDonationPlugin extends ZPlugin {
 
 	}
 
+	public DonationManager getDonationManager() {
+		return donationManager;
+	}
+	
 }
