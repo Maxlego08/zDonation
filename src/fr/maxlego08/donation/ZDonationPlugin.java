@@ -6,9 +6,13 @@ import fr.maxlego08.donation.api.DonationManager;
 import fr.maxlego08.donation.command.CommandManager;
 import fr.maxlego08.donation.command.commands.CommandDonation;
 import fr.maxlego08.donation.inventory.InventoryManager;
+import fr.maxlego08.donation.inventory.inventories.InventoryDonation;
+import fr.maxlego08.donation.inventory.inventories.InventoryDonationCreate;
+import fr.maxlego08.donation.inventory.inventories.InventoryDonations;
 import fr.maxlego08.donation.listener.AdapterListener;
 import fr.maxlego08.donation.save.Config;
 import fr.maxlego08.donation.zcore.ZPlugin;
+import fr.maxlego08.donation.zcore.enums.EnumInventory;
 
 /**
  * System to create your plugins very simply Projet:
@@ -34,7 +38,9 @@ public class ZDonationPlugin extends ZPlugin {
 				ServicePriority.High);
 
 		this.registerCommand("zdonation", new CommandDonation(), "don", "donation");
-		
+		this.registerInventory(EnumInventory.INVENTORY_DONATIONS, new InventoryDonations());
+		this.registerInventory(EnumInventory.INVENTORY_DONATION, new InventoryDonation());
+		this.registerInventory(EnumInventory.INVENTORY_DONATION_SEND, new InventoryDonationCreate());
 		/* Add Listener */
 
 		addListener(new AdapterListener(this));
@@ -63,5 +69,5 @@ public class ZDonationPlugin extends ZPlugin {
 	public DonationManager getDonationManager() {
 		return donationManager;
 	}
-	
+
 }

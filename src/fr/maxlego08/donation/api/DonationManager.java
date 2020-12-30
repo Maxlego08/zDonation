@@ -1,6 +1,5 @@
 package fr.maxlego08.donation.api;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.OfflinePlayer;
@@ -58,6 +57,6 @@ public interface DonationManager extends Saveable{
 	 * @param offlinePlayer
 	 * @return donation list
 	 */
-	public Collection<Donation> getDonations(OfflinePlayer offlinePlayer);
+	public List<Donation> getDonations(OfflinePlayer offlinePlayer);
 
 }

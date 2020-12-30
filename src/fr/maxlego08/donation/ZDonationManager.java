@@ -1,7 +1,6 @@
 package fr.maxlego08.donation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ import fr.maxlego08.donation.zcore.utils.storage.Persist;
 
 public class ZDonationManager extends ZUtils implements DonationManager {
 
-	private List<Donation> donations = new ArrayList<Donation>();
+	private static List<ZDonation> donations = new ArrayList<ZDonation>();
 
 	/**
 	 * @param plugin
@@ -31,6 +30,12 @@ public class ZDonationManager extends ZUtils implements DonationManager {
 
 	@Override
 	public void openDonationSend(Player player, OfflinePlayer target) {
+
+		if (target.getUniqueId().equals(player.getUniqueId())) {
+			message(player, Config.sendError);
+			return;
+		}
+
 		createInventory(player, EnumInventory.INVENTORY_DONATION_SEND, 1, target);
 	}
 
@@ -45,10 +50,10 @@ public class ZDonationManager extends ZUtils implements DonationManager {
 		if (event.isCancelled())
 			return;
 
-		this.donations.add(donation);
+		donations.add((ZDonation) donation);
 
 		if (target.isOnline() && Config.sendMessageWhenDonationIsReceive) {
-			message(target.getPlayer(), Config.receiverMessage.replace("%target%", player.getName()));
+			message(target.getPlayer(), Config.receiverMessage.replace("%sender%", player.getName()));
 		}
 
 		message(player, Config.senderMessage.replace("%target%", target.getName()));
@@ -67,17 +72,17 @@ public class ZDonationManager extends ZUtils implements DonationManager {
 
 	@Override
 	public void removeDonation(Donation donation) {
-		this.donations.remove(donation);
+		donations.remove(donation);
 	}
 
 	@Override
 	public boolean hasDonation(OfflinePlayer offlinePlayer) {
-		return this.donations.stream().anyMatch(donation -> donation.getOwner().equals(offlinePlayer.getUniqueId()));
+		return donations.stream().anyMatch(donation -> donation.getOwner().equals(offlinePlayer.getUniqueId()));
 	}
 
 	@Override
-	public Collection<Donation> getDonations(OfflinePlayer offlinePlayer) {
-		return this.donations.stream().filter(donation -> donation.getOwner().equals(offlinePlayer.getUniqueId()))
+	public List<Donation> getDonations(OfflinePlayer offlinePlayer) {
+		return donations.stream().filter(donation -> donation.getOwner().equals(offlinePlayer.getUniqueId()))
 				.collect(Collectors.toList());
 	}
 

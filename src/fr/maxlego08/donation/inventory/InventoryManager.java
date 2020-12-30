@@ -28,7 +28,7 @@ public class InventoryManager extends ListenerAdapter {
 	private Map<Integer, VInventory> inventories = new HashMap<>();
 	private Map<UUID, VInventory> playerInventories = new HashMap<>();
 
-	public void sendLog(){
+	public void sendLog() {
 		plugin.getLog().log("Loading " + inventories.size() + " inventories", LogType.SUCCESS);
 	}
 
@@ -102,7 +102,9 @@ public class InventoryManager extends ListenerAdapter {
 			}
 			if (event.getView() != null && gui.getPlayer().equals(player)
 					&& event.getView().getTitle().equals(gui.getGuiName())) {
-				event.setCancelled(true);
+				
+				if (gui.disableClick)
+					event.setCancelled(true);
 				ItemButton button = gui.getItems().getOrDefault(event.getSlot(), null);
 				if (button != null)
 					button.onClick(event);

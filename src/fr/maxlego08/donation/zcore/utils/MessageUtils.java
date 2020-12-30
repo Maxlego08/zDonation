@@ -3,10 +3,11 @@ package fr.maxlego08.donation.zcore.utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.maxlego08.donation.save.Config;
 import fr.maxlego08.donation.zcore.enums.Message;
 import fr.maxlego08.donation.zcore.utils.players.ActionBar;
 
-public abstract class MessageUtils extends LocationUtils{
+public abstract class MessageUtils extends LocationUtils {
 
 	/**
 	 * 
@@ -14,7 +15,7 @@ public abstract class MessageUtils extends LocationUtils{
 	 * @param message
 	 */
 	protected void message(CommandSender player, Message message) {
-		player.sendMessage(Message.PREFIX.msg() + " " + message.msg());
+		player.sendMessage(Config.prefix + " " + message.msg());
 	}
 
 	/**
@@ -23,7 +24,7 @@ public abstract class MessageUtils extends LocationUtils{
 	 * @param message
 	 */
 	protected void message(CommandSender player, String message) {
-		player.sendMessage(Message.PREFIX.msg() + " " + message);
+		player.sendMessage(Config.prefix + " " + message);
 	}
 
 	/**
@@ -32,7 +33,7 @@ public abstract class MessageUtils extends LocationUtils{
 	 * @param message
 	 */
 	protected void message(CommandSender player, String message, Object... args) {
-		player.sendMessage(Message.PREFIX.msg() + " " + String.format(message, args));
+		player.sendMessage(Config.prefix + " " + String.format(message, args));
 	}
 
 	/**
@@ -79,7 +80,7 @@ public abstract class MessageUtils extends LocationUtils{
 	 * @param args
 	 */
 	protected void message(CommandSender player, Message message, Object... args) {
-		player.sendMessage(Message.PREFIX.msg() + " " + String.format(message.msg(), args));
+		player.sendMessage(Config.prefix + " " + String.format(message.msg(), args));
 	}
 
 	/**
