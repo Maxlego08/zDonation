@@ -1,11 +1,13 @@
 package fr.maxlego08.donation;
 
+import org.bukkit.plugin.ServicePriority;
+
+import fr.maxlego08.donation.api.DonationManager;
 import fr.maxlego08.donation.command.CommandManager;
 import fr.maxlego08.donation.inventory.InventoryManager;
 import fr.maxlego08.donation.listener.AdapterListener;
 import fr.maxlego08.donation.save.Config;
 import fr.maxlego08.donation.zcore.ZPlugin;
-import fr.maxlego08.donation.zcore.utils.builder.CooldownBuilder;
 
 /**
  * System to create your plugins very simply Projet:
@@ -16,16 +18,19 @@ import fr.maxlego08.donation.zcore.utils.builder.CooldownBuilder;
  */
 public class ZDonationPlugin extends ZPlugin {
 
+	private final DonationManager donationManager = new ZDonationManager(this);
+
 	@Override
 	public void onEnable() {
 
 		preEnable();
 
 		commandManager = new CommandManager(this);
-
-		if (!isEnabled())
-			return;
 		inventoryManager = InventoryManager.getInstance();
+
+		/* Register service */
+		this.getServer().getServicesManager().register(DonationManager.class, donationManager, this,
+				ServicePriority.High);
 
 		/* Add Listener */
 
@@ -34,7 +39,7 @@ public class ZDonationPlugin extends ZPlugin {
 
 		/* Add Saver */
 		addSave(Config.getInstance());
-		addSave(new CooldownBuilder());
+		addSave((ZDonationManager) donationManager);
 
 		getSavers().forEach(saver -> saver.load(getPersist()));
 

@@ -2,7 +2,9 @@ package fr.maxlego08.donation.zcore.enums;
 
 public enum EnumInventory {
 
-	INVENTORY_TEST(1),
+	INVENTORY_DONATIONS(1),
+	INVENTORY_DONATION(2),
+	INVENTORY_DONATION_SEND(3),
 	
 	;
 	
