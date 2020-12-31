@@ -12,6 +12,7 @@ public class CommandDonation extends VCommand {
 		this.setPermission(Permission.ZDONATION_USE);
 		this.addSubCommand(new CommandDonationOpen());
 		this.addSubCommand(new CommandDonationSend());
+		this.addSubCommand(new CommandDonationReload());
 	}
 
 	@Override
