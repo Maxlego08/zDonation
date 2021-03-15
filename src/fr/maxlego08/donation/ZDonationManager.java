@@ -1,9 +1,11 @@
 package fr.maxlego08.donation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -94,6 +96,39 @@ public class ZDonationManager extends ZUtils implements DonationManager {
 	@Override
 	public void load(Persist persist) {
 		persist.loadOrSaveDefault(this, ZDonationManager.class, "donations");
+	}
+
+	@Override
+	public void openDonationSendAll(Player player, boolean online) {
+		createInventory(player, EnumInventory.INVENTORY_DONATION_SEND_ONLINE, 1, online);
+	}
+
+	@Override
+	public void sendDonations(Player player, boolean online, List<ItemStack> itemStacks) {
+
+		List<OfflinePlayer> offlinePlayers = online ? new ArrayList<>(Bukkit.getOnlinePlayers())
+				: Arrays.asList(Bukkit.getOfflinePlayers());
+
+		offlinePlayers.forEach(target -> {
+			Donation donation = new ZDonation(target.getUniqueId(), player.getUniqueId(), itemStacks);
+
+			CancelledDonationEvent event = new DonationSendEvent(player, target, donation);
+			event.callEvent();
+
+			if (event.isCancelled())
+				return;
+
+			donations.add((ZDonation) donation);
+
+			if (target.isOnline() && Config.sendMessageWhenDonationIsReceive) {
+				message(target.getPlayer(), Config.receiverMessage.replace("%sender%", player.getName()));
+			}
+		});
+		if (online)
+			message(player, Config.senderMessageAll);
+		else
+			message(player, Config.senderMessageAllOffline);
+
 	}
 
 }

@@ -14,6 +14,8 @@ public class Config implements Saveable {
 	public static String sendError = "§cYou cannot send a donation to yourself.";
 	public static String sendCancel = "§cYou did not put any item, the sending of the donation is cancelled.";
 	public static String senderMessage = "§7You have just sent a donation to the player §f%target%§7.";
+	public static String senderMessageAll = "§7You have just sent a donation to the player §fonline§7.";
+	public static String senderMessageAllOffline = "§7You have just sent a donation to the player §foffline§7.";
 	public static String receiverMessage = "§7You have just received a donation from the player §f%sender%§7.";
 	public static List<String> commandHelps = new ArrayList<String>();
 
@@ -22,6 +24,8 @@ public class Config implements Saveable {
 	public static String inventoryDonations = "§8Donations";
 	public static String inventoryDonation = "§8Donation §o%sender%";
 	public static String inventoryDonationSend = "§8Donation §o%target%";
+	public static String inventoryDonationSendAll = "§8Donation §oOnline";
+	public static String inventoryDonationSendAllOffline = "§8Donation §oOffline";
 
 	public static String displayName = "§f§o%sender%";
 	public static List<String> displayLore = new ArrayList<>();

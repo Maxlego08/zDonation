@@ -59,4 +59,12 @@ public interface DonationManager extends Saveable{
 	 */
 	public List<Donation> getDonations(OfflinePlayer offlinePlayer);
 
+	/**
+	 * 
+	 * @param player
+	 */
+	public void openDonationSendAll(Player player, boolean online);
+
+	public void sendDonations(Player player, boolean online, List<ItemStack> itemStacks);
+
 }
