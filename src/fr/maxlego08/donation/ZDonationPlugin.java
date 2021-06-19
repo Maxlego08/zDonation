@@ -14,6 +14,7 @@ import fr.maxlego08.donation.listener.AdapterListener;
 import fr.maxlego08.donation.save.Config;
 import fr.maxlego08.donation.zcore.ZPlugin;
 import fr.maxlego08.donation.zcore.enums.EnumInventory;
+import fr.maxlego08.donation.zcore.utils.plugins.VersionChecker;
 
 /**
  * System to create your plugins very simply Projet:
@@ -51,6 +52,9 @@ public class ZDonationPlugin extends ZPlugin {
 		/* Add Saver */
 		addSave(Config.getInstance());
 		addSave((ZDonationManager) donationManager);
+
+		VersionChecker checker = new VersionChecker(this, 16);
+		checker.useLastVersion();
 
 		getSavers().forEach(saver -> saver.load(getPersist()));
 

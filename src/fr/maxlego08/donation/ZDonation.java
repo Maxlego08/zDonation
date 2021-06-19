@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.bukkit.inventory.ItemStack;
 
 import fr.maxlego08.donation.api.Donation;
-import fr.maxlego08.donation.zcore.utils.ItemDecoder;
+import fr.maxlego08.donation.zcore.utils.nms.ItemStackUtils;
 
 public class ZDonation implements Donation {
 
@@ -24,7 +24,7 @@ public class ZDonation implements Donation {
 		super();
 		this.owner = owner;
 		this.sender = sender;
-		this.itemStacks = itemStacks.stream().map(e -> ItemDecoder.serializeItemStack(e)).collect(Collectors.toList());
+		this.itemStacks = itemStacks.stream().map(e -> ItemStackUtils.serializeItemStack(e)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ZDonation implements Donation {
 
 	@Override
 	public List<ItemStack> getDonations() {
-		return itemStacks.stream().map(e -> ItemDecoder.deserializeItemStack(e)).collect(Collectors.toList());
+		return itemStacks.stream().map(e -> ItemStackUtils.deserializeItemStack(e)).collect(Collectors.toList());
 	}
 
 }

@@ -55,6 +55,8 @@ import fr.maxlego08.donation.zcore.enums.Message;
 import fr.maxlego08.donation.zcore.enums.Permission;
 import fr.maxlego08.donation.zcore.utils.builder.CooldownBuilder;
 import fr.maxlego08.donation.zcore.utils.builder.TimerBuilder;
+import fr.maxlego08.donation.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.donation.zcore.utils.nms.NMSUtils;
 import fr.maxlego08.donation.zcore.utils.players.ActionBar;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -74,7 +76,7 @@ public abstract class ZUtils extends MessageUtils {
 	 * @return the encoded item
 	 */
 	protected String encode(ItemStack item) {
-		return ItemDecoder.serializeItemStack(item);
+		return ItemStackUtils.serializeItemStack(item);
 	}
 
 	/**
@@ -82,7 +84,7 @@ public abstract class ZUtils extends MessageUtils {
 	 * @return the decoded item
 	 */
 	protected ItemStack decode(String item) {
-		return ItemDecoder.deserializeItemStack(item);
+		return ItemStackUtils.deserializeItemStack(item);
 	}
 
 	/**
@@ -133,7 +135,7 @@ public abstract class ZUtils extends MessageUtils {
 	private static transient Material[] byId;
 
 	static {
-		if (!ItemDecoder.isNewVersion()) {
+		if (!NMSUtils.isNewVersion()) {
 			byId = new Material[0];
 			for (Material material : Material.values()) {
 				if (byId.length > material.getId()) {
@@ -1089,7 +1091,7 @@ public abstract class ZUtils extends MessageUtils {
 	public ItemStack playerHead(ItemStack itemStack, OfflinePlayer player) {
 		String name = itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()
 				? itemStack.getItemMeta().getDisplayName() : null;
-		if (ItemDecoder.isNewVersion()) {
+		if (NMSUtils.isNewVersion()) {
 			if (itemStack.getType().equals(Material.PLAYER_HEAD) && name != null && name.startsWith("HEAD")) {
 				SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
 				name = name.replace("HEAD", "");
@@ -1123,7 +1125,7 @@ public abstract class ZUtils extends MessageUtils {
 	 * @return itemstack
 	 */
 	protected ItemStack playerHead() {
-		return ItemDecoder.isNewVersion() ? new ItemStack(Material.PLAYER_HEAD)
+		return NMSUtils.isNewVersion() ? new ItemStack(Material.PLAYER_HEAD)
 				: new ItemStack(getMaterial(397), 1, (byte) 3);
 	}
 
@@ -1204,7 +1206,7 @@ public abstract class ZUtils extends MessageUtils {
 	 */
 	protected boolean isPlayerHead(ItemStack itemStack) {
 		Material material = itemStack.getType();
-		if (ItemDecoder.isNewVersion())
+		if (NMSUtils.isNewVersion())
 			return material.equals(Material.PLAYER_HEAD);
 		return (material.equals(getMaterial(397))) && (itemStack.getDurability() == 3);
 	}
@@ -1276,7 +1278,7 @@ public abstract class ZUtils extends MessageUtils {
 			throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		Class<?> clazz = object.getClass();
 		Field objectField = field.equals("commandMap") ? clazz.getDeclaredField(field)
-				: field.equals("knownCommands") ? ItemDecoder.isNewVersion()
+				: field.equals("knownCommands") ? NMSUtils.isNewVersion()
 						? clazz.getSuperclass().getDeclaredField(field) : clazz.getDeclaredField(field) : null;
 		objectField.setAccessible(true);
 		Object result = objectField.get(object);

@@ -16,8 +16,8 @@ public class CommandDonationVersion extends VCommand {
 
 		message(sender, "§aVersion du plugin§7: §2" + plugin.getDescription().getVersion());
 		message(sender, "§aAuteur§7: §2Maxlego08");
-		message(sender, "§aDiscord§7: §2http://discord.groupez.xyz/");
-		message(sender, "§aDownload§7: §2https://groupez.xyz/resources/zdonation.16");
+		message(sender, "§aDiscord§7: §2http://discord.groupez.dev/");
+		message(sender, "§aDownload§7: §2https://groupez.dev/resources/zdonation.16");
 
 		return CommandType.SUCCESS;
 	}
